@@ -1,8 +1,9 @@
 ---
 layout: post
-title:  "Why this blog ?"
-excerpt: "Let'see why I decided to create another blog dedicated to my journey of using DevOps"
+title:  "Welcome to Jekyll!"
 ---
+
+# Another blog ? Again ?
 
 Over the last twenty I wrote several books and blogs and I kept abandoning them, list there is a strong chance I'll do the same with this one day. Still, I strongly believe that our role on Earth is to share with everyone and this blog will be my small part of doing it.
 

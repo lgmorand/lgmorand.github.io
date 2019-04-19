@@ -1,6 +1,6 @@
 # main links
 main:
-  - title: "Sample Posts"
+  - title: "/Blog"
     url: /year-archive/
   - title: "Whitepaper"
     url: /secdevops-whitepaper/
