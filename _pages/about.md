@@ -1,3 +1,7 @@
+---
+permalink: /about/
+---
+
 # About
 
 My name is Louis-Guillaume MORAND, a f
