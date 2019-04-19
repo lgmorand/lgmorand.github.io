@@ -1,7 +1,7 @@
 # main links
 main:
   - title: "/Blog"
-    url: /year-archive/
+    url: /
   - title: "Whitepaper"
     url: /secdevops-whitepaper/
     description: "SecDevOps Whitepaper"
