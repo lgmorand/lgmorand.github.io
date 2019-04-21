@@ -1,6 +1,6 @@
 # main links
 main:
-  - title: "/Blog"
+  - title: "Blog"
     url: /
   - title: "Whitepaper"
     url: /secdevops-whitepaper/
