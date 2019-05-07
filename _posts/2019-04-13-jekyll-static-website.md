@@ -2,6 +2,7 @@
 layout: post
 title:  "Jekyll website on an Azure Blob Storage using Azure DevOps"
 excerpt: "Discover how run a jekyll website CI/CD and host it without a web server"
+author_profile: false
 ---
 
 This repo is an example on how to build a jekyll website on an azure blob storage using Azure DevOps
