@@ -24,13 +24,13 @@ featured_image: /images/books/cover.png
 
 	<div class="wrap">
 
-	 {% for project in site.projects %}
+		{% for project in site.projects reversed %}
 
 		<article class="post">
 
 			<div class="post__image-wrap">
 				<div class="post__image"
-                     style="background-image: url({{ project.featured_image | relative_url }})"></div>
+                                    style="background-image: url({{ project.featured_image | relative_url }})"></div>
 			</div>
 
 			<div class="post__content-wrap">

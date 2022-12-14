@@ -35,9 +35,9 @@ defaults:
   -
     scope:
       path: ""
-      type: "projects"
+      type: "books"
     values:
-      layout: "project"
+      layout: "book"
 
 markdown: kramdown
 

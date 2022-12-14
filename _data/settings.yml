@@ -9,11 +9,13 @@ header_settings:
 menu_settings:
   menu_items:
     - title: 'Blog'
-      url: 'https://lgmorand.github.io/blog/'
+      url: '/blog'
     - title: 'Books'
       url: '/books'
     - title: 'About'
       url: '/about'
+    - title: 'Contact'
+      url: '/contact'
 
 footer_settings:
   footer_tagline: 
