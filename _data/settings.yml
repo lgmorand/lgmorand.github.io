@@ -12,8 +12,6 @@ menu_settings:
       url: 'https://lgmorand.github.io/blog/'
     - title: 'About'
       url: '/about'
-    - title: 'Contact'
-      url: '/contact'
 
 footer_settings:
   footer_tagline: 
