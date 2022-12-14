@@ -2,7 +2,7 @@
 title: 'dsdfsdfsdf me'
 date: 2022-12-12 00:00:00
 description: About me and about the purpose of this site (spoil..I still don't know)
-featured_image: '/images/blob/cover.jpg'
+featured_image: '/images/blog/cover.jpg'
 ---
 
 ## Demo content eze rzer zer zere

@@ -11,8 +11,6 @@ My name is Louis-Guillaume MORAND, an almost 40 years old geek (+almost already 
 
 Today I spend my free time writing (technical books) or internal content for Microsoft and our customers. Always loving a technical chat around a good glass of wine, I'm also super famous for being grumpy.
 
-{% include contact-form.html %}
-
 look, a big picture of me. you are allowed to use it as wallpaper if you want
 
 ![LGM](/images/about/about.jpg)
