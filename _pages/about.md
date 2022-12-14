@@ -1,7 +1,7 @@
 ---
 title: 'About'
 subtitle: 'About me'
-date: 2022-22-14 00:00:00
+date: 2022-12-12 00:00:00
 description: About me and about the purpose of this site (spoil..I still don't know)
 featured_image: '/images/about/about.jpg'
 ---
