@@ -10,9 +10,9 @@ collections:
   posts:
     output: true
     permalink: /blog/:slug
-  projects:
+  books:
     output: true
-    permalink: /project/:slug
+    permalink: /book/:slug
 
 defaults:
   -

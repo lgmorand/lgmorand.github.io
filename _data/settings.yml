@@ -10,6 +10,8 @@ menu_settings:
   menu_items:
     - title: 'Blog'
       url: 'https://lgmorand.github.io/blog/'
+    - title: 'Books'
+      url: '/books'
     - title: 'About'
       url: '/about'
 
