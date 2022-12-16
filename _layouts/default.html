@@ -57,6 +57,14 @@
 	<!-- Analytics Code -->
 	{{ site.data.settings.advanced_settings.analytics_code }}
 	{% endif %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HHFTTV6TTG"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-HHFTTV6TTG');
+	</script>
 
 	{% if site.data.settings.advanced_settings.header_js %}
 	<!-- Extra Header JS Code -->
