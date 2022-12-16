@@ -1,0 +1,1 @@
+https://itnext.io/running-production-workloads-in-eks-using-spot-instances-fc6808a7b462
