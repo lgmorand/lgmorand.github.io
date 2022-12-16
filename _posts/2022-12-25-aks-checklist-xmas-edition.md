@@ -1,6 +1,6 @@
 ---
 title: 'The AKS Checklist - Christmas edition'
-date: 2022-20-12 00:80:00
+date: 2022-12-25 00:08:00
 description: The up to date version of the checklist with 158 items to check before going to production !
 featured_image: '/images/blog/aks-checklist-xmas-edition/cover.jpg'
 external_url: https://www.the-aks-checklist.com/
