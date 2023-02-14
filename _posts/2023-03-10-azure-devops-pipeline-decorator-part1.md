@@ -106,7 +106,7 @@ In our case, we want to display the banner at the beginning of any workflow and 
                 "template": "banner-decorator.yml"
             }
         }
-    ],
+    ]
 ```
 
 The last part is related to the files that should be included during the packaging process:

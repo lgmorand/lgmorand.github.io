@@ -51,4 +51,4 @@ vsce delete-publisher PUBLISHER_NAME
 
 ![Deletion successful](../images/blog/delete-publisher/cli1.png)
 
-And that's it. My publishers are gone and now created new ones !
+And that's it. My publishers are gone and I can now create new ones !
