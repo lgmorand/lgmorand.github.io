@@ -1,6 +1,6 @@
 ---
 title: 'Azure DevOps - pipeline decorators - part 3'
-date: 2023-02-01 00:00:00
+date: 2023-03-10 00:00:00
 description: How to use pipeline decorators, an unknown super powerful feature of Azure DevOps
 featured_image: '/images/blog/cover.jpg'
 ---
@@ -12,7 +12,6 @@ This subject is split into five parts:
 - Part 3: [Create a more advanced decorator: a docker linter](https://lgmorand.github.io/blog/azure-devops-pipeline-decorator-part3)
 - Part 4: [Create another advanced decorator: a credentials scanner](https://lgmorand.github.io/blog/azure-devops-pipeline-decorator-part4)
 - Part 5: [Tips and tricks](https://lgmorand.github.io/blog/azure-devops-pipeline-decorator-part4)
-
 
 ## Part 3: Create a docker linter
 

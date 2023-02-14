@@ -1,6 +1,6 @@
 ---
 title: 'Azure DevOps - pipeline decorators - part 1'
-date: 2023-02-01 00:00:00
+date: 2023-03-10 00:00:00
 description: How to use pipeline decorators, an unknown super powerful feature of Azure DevOps
 featured_image: '/images/blog/cover.jpg'
 ---
