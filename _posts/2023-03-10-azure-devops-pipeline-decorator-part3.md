@@ -149,7 +149,7 @@ Our final vss-extension file looks like this:
             "targettask": "e28912f1-0114-4464-802a-a3a35437fd16"
         }
     }
-],
+]
 ```
 
 > Note: if the users use directly the *docker* command within a script or a simple CmdLine task, our decorator would not work as we can't parse the pipeline file to detect a keyword. There is no solution that I'm aware of for such use case.
