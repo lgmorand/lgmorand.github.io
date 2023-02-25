@@ -7,7 +7,7 @@ featured_image: '/images/blog/aks-monitoring-expensive/cover.jpg'
 
 Let's be straight to the point, monitoring is NOT cheap. The more information you collect/need, the **more you'll have to pay either for the processing or the storage of all this data**. If you implement monitoring of your different clusters, you'll discover that it can quickly become expensive. As an example, a small cluster (3 nodes) with few pods [can generate 20 GB of data per month](https://learn.microsoft.com/en-us/azure/azure-monitor/containers/container-insights-cost#estimating-costs-to-monitor-your-aks-cluster).
 
-Let's see how you can optimize to monitoring to reduce drastically the costs
+Let's see how you can optimize your monitoring to reduce drastically the costs.
 
 > This article will only cover the Azure built-in monitoring solution. If you are using alternative monitoring solutions, there are not cheaper either but I can't help.
 
@@ -126,7 +126,7 @@ For more information regarding Table Transformation, [read the documentation](ht
 
 ## Data Collection Rules
 
-A new feature announced a few days ago is the usage of [Data Collection Rules](https://review.learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-rule-overview). Called, `Cost optimization settings`, it offers users the ability to customize and control the metrics data collected through the Container Insights agent.
+A new feature announced a few days ago is the usage of [Data Collection Rules](https://review.learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-rule-overview). Called, `Cost optimization settings`, it offers users the ability to customize and control the metrics data collected through the Container Insights agent. It allows customers to configure custom collection settings for the Perf, Inventory, InsightsMetrics, and KubeEvents tables to reduce their Log Analytics ingestion.
 
 You have three new parameters:
 
