@@ -72,7 +72,15 @@ az aks upgrade \
 
 ## Automatic upgrade
 
+> If using the node-image cluster auto-upgrade channel or the NodeImage node image auto-upgrade channel, Linux unattended upgrades will be disabled by default.
+
 
 ## Planned maintenance
+
+
+## What about deprecated APIs?
+
+Regularly, when a new Kubernetes version is released some resources (CRD) and APIs are marked as deprecated and stop working. These deprecated APIs are listed on [this page](https://kubernetes.io/docs/reference/using-api/deprecation-guide/).
+
 
 ## Conclusion
