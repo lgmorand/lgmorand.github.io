@@ -122,7 +122,7 @@ Typically, if you have 100Gb of data and filter 70% of it (it remains 30Gb), you
 
 The price per Gb is not the same for the two! Data processing is 5x cheaper. Nevertheless, if you can reduce data even before they are sent to Log Analytics (with the [Agent configuration](#agent-configuration) or the [next chapter](#data-collection-rules)), it would be better.
 
-For more information regarding Table Transformation, [read the documentation](https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-transformations).
+For more information regarding Table Transformation, [read the documentation](https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-transformations). And if you want really deep customization, you can use custom [libraries](https://devblogs.microsoft.com/azure-sdk/out-with-the-rest-azure-monitor-ingestion-libraries-appear/).
 
 ## Data Collection Rules
 
