@@ -8,6 +8,21 @@ featured_image: '/images/blog/aks-upgrade-strategy/cover.png'
 
 ## Introduction
 
+Some people believe that upgrading an AKS cluster only involves upgrading the Kubernetes version. It's a little more complex than that but perfectly logical.
+
+When you install a Kubernetes cluster, you install it on Virtual Machines and you have several layers of components:
+
+- The first one is the operating system itself (Ubuntu, Windows or Mariner on Azure). As with any computer, the OS must being patched on regular basis
+- On top of that system, you will have the Kubernetes components
+- But you also have components which are used to form the "AKS version" offering. You'll find things such as the container runtime (containerd), some security profiles, some tooling, some configuration for the OS
+
+These are the 3 layers of a worker not and these three layers must be upgraded.
+
+![Upgrade layers](../images/blog/aks-upgrade-strategy/upgrade%20layer.png)
+
+
+
+
 ## Kubernetes lifecycle
 
 For several years, the Kubernetes community released a new version every 3 months and the support was limited to the last version + 2 previous ones, which means that you had to upgrade your cluster at the very least once every 9 months. When you have critical workloads or manage dozen of clusters, it can become really difficult to manage all of them.
@@ -20,7 +35,7 @@ In consequence, the Kubernetes group did some analysis and discover that the maj
 
 ## AKS lifecycle
 
-On Azure, Microsoft tries to follow the same schedule. To be precise, once a version of Kubernetes is released, a month later, this version is generally available as Preview and a few weeks later as "GA". Once this version is released, (let's say version 1.26), the versions 1.26.x, 1.25.x and 1.24x remain supported while version 1.23.x will go out of support after 30 days.
+On Azure, Microsoft tries to follow the same schedule. To be precise, once a version of Kubernetes is released, a month later, this version is generally available as Preview and a few weeks later as "GA". Once this version is released, (let's say version 1.26), the different versions (1.26.x, 1.25.x and 1.24x) remain supported while version 1.23.x will go out of support after 30 days.
 
 But that's not sufficient. Regarding the patch versions, only two of them are supported. For instance, we would have
 
@@ -84,3 +99,13 @@ Regularly, when a new Kubernetes version is released some resources (CRD) and AP
 
 
 ## Conclusion
+
+As you have seen, there are several techniques to manage the lifecycle of your cluster but here is my recommendation:
+
+1. enable cluster auto-upgrade channel using the **patch** channel on all your clusters. You'll be up to date with the last bug & security fixes; while preventing any breaking changes.
+2. enable cluster auto-upgrade with the **stable** channel on your dev environment. This way, as soon as a new version is available, you start to use the new version and you have plenty of time to validate that your workloads work fine before upgrading the minor version of the production cluster.
+3. Don't forget to enable and customize planned maintenance during Office off-hours. Your workloads may not be disruption-ready, doing so, you are reducing the impact an upgrade could have on them.
+4. In a nightly pipeline, in your development environment, use tools such as [Kubent](https://github.com/doitintl/kube-no-trouble) or [Pluto](https://github.com/FairwindsOps/pluto) to detect early deprecated APIs used by the development teams.
+5. Have a reporting dashboard listing all your clusters having a soon-not-supported version and plan
+
+Follow these good practices and your life should be easier.
