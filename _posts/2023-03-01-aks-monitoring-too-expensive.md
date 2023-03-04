@@ -1,5 +1,5 @@
 ---
-title: 'Demo blog post'
+title: 'How to optimize AKS monitoring costs'
 date: 2023-03-01 00:00:00
 description: AKS monitoring can be expensive. Let's see how you can cut the costs efficiently
 featured_image: '/images/blog/aks-monitoring-expensive/cover.jpg'
