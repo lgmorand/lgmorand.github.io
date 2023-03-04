@@ -117,8 +117,8 @@ Your query can become quite complex but it could drastically reduce the number o
 Regarding the pricing, be aware that even if you remove a big chunk of data, [you'll pay for a part of the removed data](https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-transformations#cost-for-transformations).
 Typically, if you have 100Gb of data and filter 70% of it (it remains 30Gb), you will pay:
 
-- 20Gb of [data processing with a specific formula](https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-transformations#cost-for-transformations)
-- 30Gb of data ingestion
+- 20Gb of [data **processing** with a specific formula](https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/data-collection-transformations#cost-for-transformations)
+- 30Gb of data **ingestion**
 
 The price per Gb is not the same for the two! Data processing is 5x cheaper. Nevertheless, if you can reduce data even before they are sent to Log Analytics (with the [Agent configuration](#agent-configuration) or the [next chapter](#data-collection-rules)), it would be better.
 
@@ -212,4 +212,4 @@ Inside the more resources get present, the more you'll get data from them. A goo
 
 ## Conclusion
 
-All these tweaks won't allow you to get a free monitoring solution but they should help to fine-tune your usage and to pay only for what you need. From my personal experience, I'd say that I was always capable to lower the price from 50% to 80% combining several of these tips.
+All these tweaks won't allow you to get a free monitoring solution but they should help to fine-tune your usage and to pay only for what you need. From my personal experience, I'd say that I was always capable to lower the price from 50% to 80% combining several of these tips without losing in quality of monitoring.
