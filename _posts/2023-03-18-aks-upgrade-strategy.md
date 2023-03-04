@@ -5,23 +5,19 @@ description: AKS upgrade is boring, you have to do it every two months. Trying t
 featured_image: '/images/blog/aks-upgrade-strategy/cover.png'
 ---
 
-
 ## Introduction
 
 Some people believe that upgrading an AKS cluster only involves upgrading the Kubernetes version. It's a little more complex than that but perfectly logical.
 
 When you install a Kubernetes cluster, you install it on Virtual Machines and you have several layers of components:
 
-- The first one is the operating system itself (Ubuntu, Windows or Mariner on Azure). As with any computer, the OS must being patched on regular basis
+- The first one is the operating system itself (Ubuntu, Windows or Mariner on Azure). As with any computer, the OS must be patched on a regular basis
 - On top of that system, you will have the Kubernetes components
-- But you also have components which are used to form the "AKS version" offering. You'll find things such as the container runtime (containerd), some security profiles, some tooling, some configuration for the OS
+- But you also have components that are used to form the "AKS version" offering. You'll find things such as the container runtime ([containerd](https://containerd.io/)), some security profiles, some tooling, some configuration for the OS
 
 These are the 3 layers of a worker not and these three layers must be upgraded.
 
 ![Upgrade layers](../images/blog/aks-upgrade-strategy/upgrade%20layer.png)
-
-
-
 
 ## Kubernetes lifecycle
 
@@ -74,7 +70,7 @@ az aks get-upgrades --resource-group myResourceGroup --name myAKSCluster --outpu
 > **Upgrade path**: It's critical because the versions are not always available in all Azure regions (at the same time) and there is an upgrade path. For instance, you can't skip a version. You **must** upgrade from version 1.24 to 1.25.x before upgrading to 1.26.
 Skipping multiple versions can only be done when upgrading from an unsupported version back to a supported version. For example, an upgrade from an unsupported 1.10.x -> a supported 1.15.x can be completed if available. When performing an upgrade from an unsupported version that skips two or more minor versions, the upgrade is performed without any guarantee of functionality and is excluded from the service-level agreements and limited warranty. If your version is significantly out of date, it's recommended to re-create the cluster.
 
-To upgrade a cluster, a simple command:
+To upgrade a cluster, a simple command can do the job:
 
 ```cli
 az aks upgrade \
@@ -83,20 +79,15 @@ az aks upgrade \
     --kubernetes-version KUBERNETES_VERSION
 ```
 
-
-
 ## Automatic upgrade
 
 > If using the node-image cluster auto-upgrade channel or the NodeImage node image auto-upgrade channel, Linux unattended upgrades will be disabled by default.
 
-
 ## Planned maintenance
-
 
 ## What about deprecated APIs?
 
 Regularly, when a new Kubernetes version is released some resources (CRD) and APIs are marked as deprecated and stop working. These deprecated APIs are listed on [this page](https://kubernetes.io/docs/reference/using-api/deprecation-guide/).
-
 
 ## Conclusion
 
