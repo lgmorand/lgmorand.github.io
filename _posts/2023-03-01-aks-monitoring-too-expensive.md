@@ -164,13 +164,13 @@ Then you must apply this configuration DCR to the cluster.
 
 For a new cluster:
 
-```azcli
+```bash
 az aks create -g myResourceGroup -n myAKSCluster --enable-managed-identity --node-count 1 --enable-addons monitoring --enable-msi-auth-for-monitoring --data-collection-settings myjsonfile.json --generate-ssh-keys
 ```
 
 For an existing cluster:
 
-```azcli
+```bash
 # obtain the configured log analytics workspace resource id
 az aks show -g <clusterResourceGroup> -n <clusterName> | grep -i "logAnalyticsWorkspaceResourceID"
 
