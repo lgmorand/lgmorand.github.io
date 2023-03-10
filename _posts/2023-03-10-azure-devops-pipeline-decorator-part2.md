@@ -1,7 +1,7 @@
 ---
-title: 'Azure DevOps - pipeline decorators - part 1'
+title: 'Azure DevOps - pipeline decorators - part 2'
 date: 2023-03-10 00:00:00
-description: How to use pipeline decorators, an unknown super powerful feature of Azure DevOps
+description: Deploy your decorator, validate it, and enhance it
 featured_image: '/images/blog/azure-devops-pipeline-decorator/upload extension.png'
 ---
 
@@ -32,19 +32,19 @@ It's now time to upload our extension on the marketplace. For that, you need:
 - the generated extension (*.vsix)
 - ensuring the ID contained in its manifest (vss-extension.json) matches exactly the name of the publisher account you just created
 
-![Extension uploaded](./images/upload%20extension.png)
+![Extension uploaded](../images/blog/azure-devops-pipeline-decorator/upload%20extension.png)
 
 Once the extension is uploaded and validated, you can check the result by opening the contextual menu (...) and choosing "*View extension*" to see the final page of your extension. That is what a user would see if your extension was public:
 
-![Extension home page](./images/extension-page.png)
+![Extension home page](../images/blog/azure-devops-pipeline-decorator/extension-page.png)
 
 We still need to make it available from our org. To do so, from the context menu, click on "*Share/Unshare*" to open a side panel where you can type the name of organizations you want your extension to be available:
 
-![Share the extension](./images/share-with-org.png)
+![Share the extension](../images/blog/azure-devops-pipeline-decorator/share-with-org.png)
 
-Now, go back to your Azure DevOps organization. Once there, open the *Organization settings* screen and then the *extensions* tab. This screen shows the **Installed** extensions, the **Requested** extensions which are the extensions users without enough right tried to add to the organization and the **Shared** extensions. That is in this last screen that you should now see your custom decorator.
+Now, go back to your Azure DevOps organization. Once there, open the *Organization settings* screen and then the *extensions* tab. This screen shows the **Installed** extensions, the **Requested** extensions which are the extensions users without enough rights tried to add to the organization and the **Shared** extensions. That is in this last screen that you should now see your custom decorator.
 
-![The extension is shared with the org](./images/shared-within-org.png)
+![The extension is shared with the org](../images/blog/azure-devops-pipeline-decorator/shared-within-org.png)
 
 This only means that the extension is available but does not mean it is installed yet. You must now click on the extension and select "*Install*" to effectively install it on your organization.
 
@@ -142,7 +142,7 @@ You can also use the --rev-version parameter which will increment it for you dur
 tfx extenstion create --rev-version
 ```
 
-![Updated version](./images/update-version.png)
+![Updated version](../images/blog/azure-devops-pipeline-decorator/update-version.png)
 
 If you go back to your organization, you will note that the extension has been automatically updated to the last version; you don't need to reinstall it.
 
@@ -173,7 +173,7 @@ We can now enrich our decorator to output a second message at the end of the wor
     ]
 ```
 
-And the result, once injected in a workflow, should look like this:
+And the result, once injected into a workflow, should look like this:
 
 ![Dual banner](../images/blog/azure-devops-pipeline-decorator/dual-banner.png)
 

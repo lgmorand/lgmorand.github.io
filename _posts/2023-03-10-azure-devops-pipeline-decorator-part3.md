@@ -1,7 +1,7 @@
 ---
 title: 'Azure DevOps - pipeline decorators - part 3'
 date: 2023-03-10 00:00:00
-description: How to use pipeline decorators, an unknown super powerful feature of Azure DevOps
+description: Create a more advanced decorator - a docker linter
 featured_image: '/images/blog/azure-devops-pipeline-decorator/docker-task.png'
 ---
 
@@ -19,7 +19,7 @@ For this second decorator, we would like to build a task responsible for analyzi
 
 ### Build our linter task
 
-Technically, we need to create a task which:
+Technically, we need to create a task that:
 
 - checks if a Dockerfile exists in the source code
 - if any file is found, install dockerfileint
@@ -113,16 +113,16 @@ We can now package it, publish it and deploy it to our organization.
 
 ### My decorator is injected too often
 
-If we evaluate it, our decorator is working perfectly but it is also injected in all workflows of our organization, including those who don't use Docker technology. This could be an issue as it will increase the time of each pipeline execution (especially if the source code contains numerous files) and if you have several decorators in your organization, each pipeline could get polluted by irrelevant decorators.
+If we evaluate it, our decorator is working perfectly but it is also injected into all workflows of our organization, including those who don't use Docker technology. This could be an issue as it will increase the time of each pipeline execution (especially if the source code contains numerous files) and if you have several decorators in your organization, each pipeline could get polluted by irrelevant decorators.
 
-We need to find a way to target only pipelines which are using Dockerfile. We could restrict the decorator to run for specific projects by adding a condition, but it would require to hard-code the GUID of each project like this (there are [other ways to filter by project](#part-5-tips-and-tricks)):
+We need to find a way to target only pipelines that are using Dockerfile. We could restrict the decorator to run for specific projects by adding a condition, but it would require to hard-code the GUID of each project like this (there are [other ways to filter by project](#part-5-tips-and-tricks)):
 
 ```yaml
 steps:
 - ${{ if eq(resources.repositories['self'].project, '123455-2492-6524-9851-564526e8fc8') }}
 ```
 
-Another way of doing it is to target the presence of specific tasks in the pipelines. In our case, we want to analyze any Dockerfile with the tool *dockerfilelint* before we really use the file to build a Docker image. We just need to find pipelines where we use the Docker file. The simplest way to do it is to target pipelines which contain the built-in Docker task:
+Another way of doing it is to target the presence of specific tasks in the pipelines. In our case, we want to analyze any Dockerfile with the tool *dockerfilelint* before we use the file to build a Docker image. We just need to find pipelines where we use the Docker file. The simplest way to do it is to target pipelines that contains the built-in Docker task:
 
 ![Docker task](../images/blog/azure-devops-pipeline-decorator/docker-task.png)
 
@@ -159,4 +159,4 @@ Let's package a new version of our decorator and deploy it. If we run any workfl
 
 It's not perfect but it does the job and injecting a decorator before specific tasks is very useful to target specific workflows.
 
-In the [last part of this guide](https://lgmorand.github.io/blog/azure-devops-pipeline-decorator-part4), we will build a more complex  decorator and see some tips.
+In the [last part of this guide](https://lgmorand.github.io/blog/azure-devops-pipeline-decorator-part4), we will build a more complex decorator and see some tips.

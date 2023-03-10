@@ -17,22 +17,22 @@ This subject is split into five parts:
 
 ### What are pipeline decorators?
 
-Pipeline decorators are [custom tasks](https://learn.microsoft.com/en-us/azure/devops/extend/develop/add-build-task) (build or release) which can be injected automatically in all workflows of an Azure DevOps organization without the consent of the creators of the different pipelines. In a perfect world, within an organization, each development team is responsible to build their pipelines and ensure they follow the company's common good practices. In some cases, to help them, a team (often the one owning the Azure DevOps organization) creates custom tasks and make them available to users to enrich their pipelines. It could be a wrapper to build something complex or to call a tool such as a SCA/SAST (security code analyzer).
+Pipeline decorators are [custom tasks](https://learn.microsoft.com/en-us/azure/devops/extend/develop/add-build-task) (build or release) that can be injected automatically into all workflows of an Azure DevOps organization without the consent of the creators of the different pipelines. In a perfect world, within an organization, each development team is responsible to build their pipelines and ensure they follow the company's common good practices. In some cases, to help them, a team (often the one owning the Azure DevOps organization) creates custom tasks and makes them available to users to enrich their pipelines. It could be a wrapper to build something complex or to call a tool such as a SCA/SAST (security code analyzer).
 
-The issue with this approach is that you can't ensure that users will add the required tasks to their pipelines, and they could easily bypass quality processes you are trying to set up during development lifecycle. That's where the pipeline decorators are the solution.
+The issue with this approach is that you can't ensure that users will add the required tasks to their pipelines, and they could easily bypass the quality processes you are trying to set up during the development lifecycle. That's where the pipeline decorators are the solution.
 
 ### Requirements
 
 To follow this guide and be able to create pipeline decorators and deploy them, you will require several things:
 
-- An Azure DevOps organization where you are administrator (you can [create one for free](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/create-organization))
+- An Azure DevOps organization where you are an administrator (you can [create one for free](https://learn.microsoft.com/en-us/azure/devops/organizations/accounts/create-organization))
 - A publisher account on the Azure DevOps marketplace
 - [TFX CLI](https://www.npmjs.com/package/tfx-cli), which requires [NodeJS](https://nodejs.org) to be installed on your machine
 - (Optional) [Visual Code Extension Manager](https://github.com/microsoft/vscode-vsce) (VSCE)
 
 ### Create our first decorator
 
-We are going to start with a quite elemantary example. In this "hello world" example, we are going to see how to inject a simple task in all workflows of our organization to see the concept of build and deploying a pipeline decorator. Later, we will see how to leverage the customization of these decorators and then create more complex decorators.
+We are going to start with a quite elementary example. In this "hello world" example, we are going to see how to inject a simple task in all workflows of our organization to see the concept of build and deploying a pipeline decorator. Later, we will see how to leverage the customization of these decorators and then create more complex decorators.
 
 Create a folder and name it banner-decorator and create two files: *vss-extension.json* and *banner-decorator.yml*. The structure should look like this:
 
@@ -71,15 +71,15 @@ steps:
         echo "(_______)(_______)   \_/   \_______)(_)"
 ```
 
-We now need to create the manifest to describe our extension, specify its type (decorator) and the conditions to inject it. Several fields are mandatory:
+We now need to create the manifest to describe our extension, to specify its type (decorator) and the conditions to inject it. Several fields are mandatory:
 
-- **id**: An ID to name your decorator.
-- **type**: Specifies that this contribution is a pipeline decorator. Must be the string **ms.azure-pipelines.pipeline-decorator**.
-- **targets**: Decorators can run before your job/specified task, after, or both. See the table below for available options.
-- **properties.template**: The YAML template which defines the steps for your pipeline decorator. It is a relative path from the root of your extension folder.
+- **id**: An ID to name your decorator
+- **type**: Specifies that this contribution is a pipeline decorator. Must be the string **ms.azure-pipelines.pipeline-decorator**
+- **targets**: Decorators can run before your job/specified task, after, or both. See the table below for available options
+- **properties.template**: The YAML template that defines the steps for your pipeline decorator. It is a relative path from the root of your extension folder.
 - **properties.targettask** (Optional): The target task ID used for ms.azure-pipelines-agent-job.pre-task-tasks or ms.azure-pipelines-agent-job.post-task-tasks targets. Must be GUID string like 89b8ac58-8cb7-4479-a362-1baaacc6c7ad
 
-The question we have to ask ourselves is "where do we want to inject our decorator"? At the beginning, at the end of the pipeline? In release pipeline or only during build pipeline?
+The question we have to ask ourselves is "where do we want to inject our decorator"? At the beginning, at the end of the pipeline? In a release pipeline or only during build pipeline?
 
 | Target | Description |
 |---|---|

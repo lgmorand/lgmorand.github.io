@@ -1,7 +1,7 @@
 ---
 title: 'Azure DevOps - pipeline decorators - part 4'
 date: 2023-03-10 00:00:00
-description: How to use pipeline decorators, an unknown super powerful feature of Azure DevOps
+description: Create another advanced decorator - a credentials scanner
 featured_image: '/images/blog/azure-devops-pipeline-decorator/cred-classic.png'
 ---
 
@@ -15,7 +15,7 @@ This subject is split into five parts:
 
 ## Part 4: Create a smart credential scanner
 
-For this last decorator, we are going to inject another security tool in the pipeline, but only if the tool is not already present in the workflow. Furthermore, we will need to do more than injecting command lines.
+For this last decorator, we are going to inject another security tool in the pipeline, but only if the tool is not already present in the workflow. Furthermore, we will need to do more than inject command lines.
 
 > Important: This extension is private and not listed on the public Azure DevOps marketplace. Don't look for it. Nevertheless, I choose it because it matches perfectly what I'm willing to show.
 
@@ -24,7 +24,7 @@ For this last decorator, we are going to inject another security tool in the pip
 This extension contains a dozen of security tools, and each pipeline may require different tasks depending on what you want to scan or perform. In my case, I need:
 
 - a task to scan the files to search for credentials
-- a task to transform the results in a standard SARIF file
+- a task to transform the results into a standard SARIF file
 - a task to upload the SARIF file as an artifact
 - a task to stop the workflow if credentials are found
 
@@ -32,7 +32,7 @@ In a classic workflow, it looks like this:
 
 ![Credscan standard setup](../images/blog/azure-devops-pipeline-decorator/cred-classic.png)
 
-We want to create a decorator which inject the same four tasks, but we need to get their internal names first. To get the name of a task, you can either create a dummy YAML pipeline or you can create a dummy classic pipeline. Once configured, click on "View yaml" button, and you obtain the generated YAML which contains exactly what you want to put in your decorator.
+We want to create a decorator that injects the same four tasks, but we need to get their internal names first. To get the name of a task, you can either create a dummy YAML pipeline or you can create a dummy classic pipeline. Once configured, click on "View yaml" button, and you obtain the generated YAML which contains exactly what you want to put in your decorator.
 
 ![Get the name of a task](../images/blog/azure-devops-pipeline-decorator/get-task-id.png)
 
@@ -86,7 +86,7 @@ Finally, we need to create the vss-extension file:
 
 ### Make it compatible with all types of workflows
 
-Sadly, if we try our decorator like this, it would only work for YAML pipelines. Indeed, as explained in the documentation, in a classic pipeline, the injection would occur before the checkout task and thus, since source code would not be available yet, the scan would never return any result. That's why, in such case, you must change the target to occur after the checkout **ms.azure-pipelines-agent-job.post-checkout-tasks**.
+Sadly, if we try our decorator like this, it would only work for YAML pipelines. Indeed, as explained in the documentation, in a classic pipeline, the injection would occur before the checkout task and thus, since the source code would not be available yet, the scan would never return any result. That's why, in such case, you must change the target to occur after the checkout **ms.azure-pipelines-agent-job.post-checkout-tasks**.
 
 The final **vss-extension** file would look like this:
 
@@ -137,11 +137,11 @@ Once packaged, uploaded on the marketplace, and installed on your organization, 
 
 ## Part 5: Tips and tricks
 
-Since we were not capable of covering every capability with real decorator examples, here are some useful information.
+Since we were not capable of covering every capability with real decorator examples, here is some useful information.
 
 ### Only inject the decorator for a specific project
 
-You may want to inject decorator for specific projects or in the opposite to exclude from specific projects. There are several ways to do so:
+You may want to inject a decorator for specific projects or in the opposite, to exclude it from specific projects. There are several ways to do so:
 
 ```yaml
 steps:
@@ -215,7 +215,7 @@ This one is a little specific as it cannot be done at the job (top) level becaus
 
 And the result:
 
-!['Injected but disable'](../images/blog/azure-devops-pipeline-decorator/operating-system.png)
+!['Injected but disabled'](../images/blog/azure-devops-pipeline-decorator/operating-system.png)
 
 > Note that variables are not called the same way depending on the operating system they are running on. Note also that Agent.OS became AGENT_OS when accessed from within the workflow, [as exlained in the documentation](https://learn.microsoft.com/en-us/azure/devops/pipelines/process/variables?view=azure-devops&tabs=yaml%2Cbatch#environment-variables). It can be tricky.
 
@@ -232,7 +232,7 @@ steps:
 ## Conclusion
 
 1. Pipeline decorators are global in the entire AzDO organization. When using Pipeline Decorators, it is important to consider its implications to all the pipelines in the organization and how it could impact existing pipelines
-2. Conditional injection is the tricky part to select workflows where you want your decorator to be applied. You may have to use different technique to  narrow to the relevant pipelines
+2. Conditional injection is the tricky part to select workflows where you want your decorator to be applied. You may have to use different techniques to  narrow to the relevant pipelines
 3. Start super explicit (targeting projects for instance) and when confident, enlarge, repackage and redeploy
 4. When your organization has several decorators, and they apply to the same workflow, their order cannot be guaranteed!
 5. Conditional injecting targeting a specific task can something inject the same decorator several times in the same workflow (i.e. the Docker task). If the decorator is non-blocking
