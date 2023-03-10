@@ -63,7 +63,7 @@ The first solution which gives you total control is the manual upgrade. You can 
 
 First, you need to list the available upgrade versions for the **desired** cluster.
 
-```cli
+```bash
 az aks get-upgrades --resource-group myResourceGroup --name myAKSCluster --output table
 ```
 
@@ -72,7 +72,7 @@ Skipping multiple versions can only be done when upgrading from an unsupported v
 
 Once you selected the desired version, upgrading a cluster requires a simple command:
 
-```cli
+```bash
 az aks upgrade \
     --resource-group myResourceGroup \
     --name myAKSCluster \
@@ -81,7 +81,7 @@ az aks upgrade \
 
 ## Automatic upgrade
 
-Manual upgrade is fine when you have few clusters but it can become time consuming at entreprise-scale. To answer this problem, AKS offers an [auto upgrade feature](https://learn.microsoft.com/fr-fr/azure/aks/auto-upgrade-cluster).
+Manual upgrade is easy when you have few clusters but it can become time-consuming at enterprise scale. To answer this problem, AKS offers an [auto upgrade feature](https://learn.microsoft.com/fr-fr/azure/aks/auto-upgrade-cluster).
 
 > If using the node-image cluster auto-upgrade channel or the NodeImage node image auto-upgrade channel, Linux unattended upgrades will be **disabled** by default. It means that you don't need to use Kured anymore.
 
