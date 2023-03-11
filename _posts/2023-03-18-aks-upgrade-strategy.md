@@ -9,15 +9,27 @@ featured_image: '/images/blog/aks-upgrade-strategy/cover.png'
 
 Some people believe that upgrading an AKS cluster only involves upgrading the Kubernetes version. It's a little more complex than that.
 
+**[TLDR; you can skip and go right to the conclusion](#conclusion)**
+
 When you install a Kubernetes cluster, you install it on Virtual Machines and you have several layers of components which all have a different lifecycle:
 
 - The first one is the operating system itself (Ubuntu, Windows or Mariner on Azure). As with any computer, the OS must be patched regularly, at least once a month.
 - On top of that system, you will have the Kubernetes components. Kubernetes releases a minor version every four months and a patch version each month.
-- But you also have components that are used to form the "AKS version" offering. You'll find things such as the container runtime ([containerd](https://containerd.io/)), some security profiles, some tooling, some configuration for the OS. The layer is called "node image".
+- But you also have components that are used to form the "AKS version" offering. You'll find things such as the container runtime ([containerd](https://containerd.io/)), some security profiles, some tooling, and some configuration for the OS. The layer is called "node image".
 
 These are the 3 layers of a worker not and these three layers must be upgraded.
 
 ![Upgrade layers](../images/blog/aks-upgrade-strategy/upgrade%20layer.png)
+
+## OS security patch
+
+When you deploy a cluster with Linux nodes (Ubuntu or Mariner), by default, to protect your clusters, security updates are automatically applied to Linux nodes in AKS. These updates include OS security fixes or kernel updates. Some of these updates require a node reboot to complete the process. AKS doesn't automatically reboot these Linux nodes to complete the update process.
+
+Instead, when a patch requires a reboot, it creates a file on the disk and you have to monitor for the presence of this file. Instead of doing it manually, you can deploy a tool ([Kured](https://learn.microsoft.com/en-us/azure/aks/node-updates-kured)) that will handle the reboot of all your nodes automatically.
+
+![Node reboot process](../images/blog/aks-upgrade-strategy/node-reboot-process.png)
+
+> **Important**: it does not work the same with Windows nodes. For them, automatic updates are disabled and you must use *node-image* upgrade feature which is covered later in this article.
 
 ## Kubernetes lifecycle
 
@@ -33,24 +45,22 @@ In consequence, the Kubernetes group did some analysis and discover that the maj
 
 On Azure, Microsoft tries to follow the same schedule. To be precise, once a version of Kubernetes is released, a month later, this version is generally available as Preview and a few weeks later as "GA". Once this version is released, (let's say version 1.26), the different versions (1.26.x, 1.25.x and 1.24x) remain supported while version 1.23.x will go out of support after 30 days.
 
-But that's not sufficient. Regarding the patch versions, only two of them are supported. For instance, we would have
+But that's not sufficient. Regarding the patch versions, only two of them are supported. For instance, we would have:
 
 | Version  | Supported |
 |---|---|
 | v1.26.1 | Yes |
 | v1.25.5 | Yes |
 | v1.25.3 | Yes |
-| v1.25.1 | No |
+| v1.25.1 | **No**, because only two patch versions |
 | v1.24.11 | Yes |
 | v1.24.9 | Yes|
-| v1.24.6 | No |
-| v1.24.3 | No |
-| v1.24.1 | No |
-| v1.23.x | No |
+| v1.24.6 | **No**, because only two patch versions |
+| v1.23.x | **No**, because only two minor versions |
 
 ### What's happening when you are in an out-of-support version?
 
-Nothing. The documentation says that Azure may force the upgrade but I've never seen that. It would be too dangerous for Microsoft as they don't know what's running inside the cluster. I saw clusters with version 1.13 while the 1.21 was GA.
+Nothing. The documentation says that Azure may force the upgrade but I've never seen that over the last 4 years. It would be too dangerous for Microsoft as they don't know what's running inside the cluster. I saw clusters with version 1.13 while the 1.21 was GA. Nevertheless, since it's a managed Kubernetes, it is perfectly understandable that they don't have to maintain their APIs compatible with very old versions.
 
 The main risk is regarding Azure support. If you create a ticket, the support will first check the version of your cluster. **They won't provide support for any issue if your cluster is out of support**.
 What they will do instead, is provide help as a best effort to upgrade your cluster to a supported version and then, once done, they will work on your issue.
@@ -81,9 +91,9 @@ az aks upgrade \
 
 ## Automatic upgrade
 
-Manual upgrade is easy when you have few clusters but it can become time-consuming at enterprise scale. To answer this problem, AKS offers an [auto upgrade feature](https://learn.microsoft.com/fr-fr/azure/aks/auto-upgrade-cluster).
+Manual upgrade is easy when you have few clusters but it can become time-consuming at the enterprise scale. To answer this problem, AKS offers an [auto upgrade feature](https://learn.microsoft.com/fr-fr/azure/aks/auto-upgrade-cluster).
 
-> If using the node-image cluster auto-upgrade channel or the NodeImage node image auto-upgrade channel, Linux unattended upgrades will be **disabled** by default. It means that you don't need to use Kured anymore.
+> When using the node-image cluster auto-upgrade channel or the NodeImage node image auto-upgrade channel, Linux unattended upgrades will be **disabled** by default. It means that you don't need to use Kured anymore.
 
 ## Planned maintenance
 
@@ -105,8 +115,9 @@ As you have seen, there are several techniques to manage the lifecycle of your c
 
 1. enable cluster auto-upgrade channel using the **patch** channel on all your clusters. You'll be up to date with the last bug & security fixes; while preventing any breaking changes.
 2. enable cluster auto-upgrade with the **stable** channel on your dev environment. This way, as soon as a new version is available, you start to use the new version and you have plenty of time to validate that your workloads work fine before upgrading the minor version of the production cluster.
-3. Don't forget to enable and customize planned maintenance during Office off-hours. Your workloads may not be disruption-ready, doing so, you are reducing the impact an upgrade could have on them.
-4. In a nightly pipeline, in your development environment, use tools such as [Kubent](https://github.com/doitintl/kube-no-trouble) or [Pluto](https://github.com/FairwindsOps/pluto) to detect early deprecated APIs used by the development teams. As an alternative, deploy a policy to prevent the deployment of deprecated APIs.
-5. Have a reporting dashboard listing all your clusters having a soon-not-supported version and plan
+3. Optionally, add the new dedicated [Node Os upgrade channel](https://learn.microsoft.com/en-us/azure/aks/auto-upgrade-node-image), to have both patch and node-image upgrades.
+4. Don't forget to enable and customize planned maintenance during Office off-hours. Your workloads may not be disruption-ready, doing so, you are reducing the impact an upgrade could have on them.
+5. In a nightly pipeline, in your development environment, use tools such as [Kubent](https://github.com/doitintl/kube-no-trouble) or [Pluto](https://github.com/FairwindsOps/pluto) to detect early deprecated APIs used by the development teams. As an alternative, deploy a policy to prevent the deployment of deprecated APIs.
+6. Have a reporting dashboard listing all your clusters having a soon-not-supported version and plan their upgrade.
 
 Follow these good practices and your life should be easier.
