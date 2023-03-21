@@ -61,12 +61,24 @@ The real value of this feature is that it allows you to put a policy that only a
 
 Until now, when this policy was enabled, when a project team wanted to use a public image, they had to pull the image locally, push it in the registry and then pull it in the Kubernetes cluster. This new feature will simplify this part.
 
+Another aspect of governance, now that we can whitelist a set of Azure Container Registries, is to go a step further with Microsoft Defender for Containers which allows you to scan images for known vulnerabilities when they are first pushed, and whenever they are pulled.
+
+This relies on the following azure policy that denies AKS to create pods/deployments out of vulnerable docker images (scanned by Defender for Cloud).
+
+This extra step in governance is to be performed with extreme care as it sets a strain on application teams to always have safe images. For that, you may use [Azure Defender CI/CD scanning](https://aka.ms/AzureDefenderCICDscanning) and (Azure defender for container registries](https://aka.ms/AzureDefenderForContainerRegistries) to identify and patch vulnerabilities before deployment.
+
+Another aspect to consider is to exclude production environments from the scope of this policy as this may lead AKS not being able to create new replicas of existing deployments (that still rely on a just-identified-but-not-yet-fixed docker image).
+
 ## Next steps
 
 Of course, this preview is quite incomplete but it paves the way to something great. For instance, we could have only one place for all container images and we could enable security scanning on it (which is in the roadmap).
 
 ## Conclusion
 
-It costs almost nothing (only storage used by imported images) but brings more control, better performance to pull an image and is the first step for your governance. It should be your default choice.
+It costs almost nothing (only storage used by imported images) but it brings more control, better performance to pull an image and is the first step for your governance. It should be your default choice.
 
 ps: be careful with [the current limitations](https://learn.microsoft.com/en-us/azure/container-registry/tutorial-registry-cache#preview-limitations), especially the number of caching rules.
+
+## Thanks 
+
+Thanks to my colleague Fethi Dilmi for proofreading and completing this post.
