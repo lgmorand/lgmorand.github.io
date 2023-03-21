@@ -35,7 +35,7 @@ Usage
 | summarize BillableDataGB = sum(Quantity) / 1000. by bin(TimeGenerated, 1d), DataType | render piechart
 ````
 
-As shown in the chart below we can see that Perf and ContainerInventory are a big part of my logged data. Do you really need all of them? There is no global best practice as each project each different. Choose wisely which optimization you can leverage.
+As shown in the chart below we can see that Perf and ContainerInventory are a big part of my logged data. Do you really need all of them? There is no global best practice as each project are different. Choose wisely which optimization you can leverage.
 
 ![Data categories](../images/blog/aks-monitoring-expensive/data%20categories.png)
 
@@ -110,7 +110,7 @@ Then follow the wizard to exit the default query
 
 ![Edit transformation](../images/blog/aks-monitoring-expensive/table%20transformation2.png)
 
-> Note: Table transformation can also be used to split data and send them in different tables, for instance an table on which you can enable BasicLogs. Right now, it can not be done through the portal, you must use ARM templates to do so. Remember that table transformation is not [available for all tables](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/tables-feature-support).
+> Note: Table transformation can also be used to split data and send them in different tables, for instance a table on which you can enable BasicLogs. Right now, it can not be done through the portal, you must use ARM templates to do so. Remember that table transformation is not [available for all tables](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/tables-feature-support).
 
 Your query can become quite complex but it could drastically reduce the number of imported data.
 
