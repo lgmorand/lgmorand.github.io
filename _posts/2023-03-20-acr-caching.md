@@ -79,6 +79,6 @@ It costs almost nothing (only storage used by imported images) but it brings mor
 
 ps: be careful with [the current limitations](https://learn.microsoft.com/en-us/azure/container-registry/tutorial-registry-cache#preview-limitations), especially the number of caching rules.
 
-## Thanks 
+## Thanks
 
 Thanks to my colleague Fethi Dilmi for proofreading and completing this post.
