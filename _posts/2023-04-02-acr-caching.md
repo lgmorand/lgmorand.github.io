@@ -1,6 +1,6 @@
 ---
 title: 'Azure Container Registry Caching - why is it great?'
-date: 2023-03-10 00:00:00
+date: 2023-04-02 00:00:00
 description: This new feature for ACR will improve your image management
 featured_image: '/images/blog/acr-caching/new-rule.png'
 ---
