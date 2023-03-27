@@ -9,7 +9,7 @@ Let's be straight to the point, monitoring is NOT cheap. The more information yo
 
 Let's see how you can optimize your monitoring to reduce drastically the costs.
 
-> This article will only cover the Azure built-in monitoring solution. If you are using alternative monitoring solutions, there are not cheaper either but I can't help.
+> This article will only cover the Azure built-in monitoring solution. If you are using alternative monitoring solutions, they are not cheaper either but I can't help.
 
 If you can't make all the costs disappear there are different ways to optimize them.
 
