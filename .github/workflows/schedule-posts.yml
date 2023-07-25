@@ -1,8 +1,8 @@
-name: Build every 6 hours
+name: Build every day at 6AM
 
 on:
   schedule:
-    - cron: "0 */6 * * *" # Run at the end of every day.
+    - cron: "0 6 * * *" # Run at the end of every day.
 jobs:
   curl:
     runs-on: ubuntu-latest
